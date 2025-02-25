@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace QuadraFinder
 {
-    public partial class Form1: Form
+    public partial class Principal: Form
     {
-        public Form1()
+        public Principal()
         {
             InitializeComponent();
         }
@@ -24,7 +24,8 @@ namespace QuadraFinder
 
         private void quadraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            frmCadastrarQuadra formulario = new frmCadastrarQuadra();
+            formulario.ShowDialog();
         }
 
         private void usuarioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -36,6 +37,12 @@ namespace QuadraFinder
         private void usuarioToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             frmBuscarUser formulario = new frmBuscarUser();
+            formulario.ShowDialog();
+        }
+
+        private void quadraToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmBuscarQuadra formulario = new frmBuscarQuadra();
             formulario.ShowDialog();
         }
     }

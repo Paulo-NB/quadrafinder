@@ -25,14 +25,13 @@ namespace QuadraFinder
             quadras.name = txtNome.Text;
             quadras.publicplace = txtLogradouro.Text;
             quadras.zipcode = txtCEP.Text;
+            quadras.photos = txtFoto.Text;
             quadras.type = txtTipos.Text;
-            quadras.photos = txtFotos.Text;
             quadras.state = txtEstado.Text;
             quadras.city = txtCidade.Text;
             quadras.neighborhood = txtBairro.Text;
             quadras.preco = decimal.TryParse(txtPreco.Text, out decimal preco) ? preco : 0;
-            quadras.alugado = chkAlugado.Checked;
-            quadras.naoalugado = chkNaoAlugado.Checked;
+            quadras.status = chkAlugado.Checked;
 
             if (txtID.Text == "")
             {
@@ -69,17 +68,21 @@ namespace QuadraFinder
                 txtLogradouro.Text = quadra.publicplace;
                 txtCEP.Text = quadra.zipcode;
                 txtTipos.Text = quadra.type;
-                txtFotos.Text = quadra.photos;
                 txtEstado.Text = quadra.state;
                 txtCidade.Text = quadra.city;
                 txtBairro.Text = quadra.neighborhood;
                 txtPreco.Text = quadra.preco.ToString();
-                chkAlugado.Checked = quadra.alugado;
-                chkNaoAlugado.Checked = quadra.naoalugado;
+                if(quadra.status.Equals("alugado"))
+                {
+                    chkAlugado.Checked = true;
+                }
+                else
+                {
+                    chkAlugado.Checked = false;
+                }
                 btnSalvar.Text = "Atualizar";
             }
         }
     }
 }
-
 

@@ -59,6 +59,7 @@
             this.btnCancelar.TabIndex = 46;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
             // 
             // btnExcluir
             // 
@@ -89,7 +90,7 @@
             this.txtPesquisa.Name = "txtPesquisa";
             this.txtPesquisa.Size = new System.Drawing.Size(460, 20);
             this.txtPesquisa.TabIndex = 43;
-            this.txtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged_1);
+            this.txtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged);
             // 
             // label2
             // 
@@ -104,6 +105,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(519, 368);
             this.Controls.Add(this.btnAtualizar);
             this.Controls.Add(this.btnCancelar);
@@ -111,8 +113,10 @@
             this.Controls.Add(this.dgvuserAdm);
             this.Controls.Add(this.txtPesquisa);
             this.Controls.Add(this.label2);
+            this.ForeColor = System.Drawing.SystemColors.Control;
             this.Name = "frmBuscarUser";
             this.Text = "frmBuscarUser";
+            this.Load += new System.EventHandler(this.frmBuscarUser_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvuserAdm)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuadraFinder;
+using System;
 using System.Data;
 using System.Globalization;
 using System.Windows.Forms;
@@ -21,12 +22,17 @@ namespace QuadraFinder
         public int Salvar()
         {
             int id = 0;
+
+            DateTime dataHoraAtual = DateTime.UtcNow;
+
+            // Formata a data e hora para o formato desejado
+            string hoje = dataHoraAtual.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
             try
             {
-                BD._sql = String.Format(new CultureInfo("en-US"), "INSERT INTO USER (NAME, CPF, EMAIL, PASS, PHONE) " +
-                                       "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')" +
-                                       "; SELECT SCOPE_IDENTITY();",
-                                        name, cpf, email, pass, phone);
+                BD._sql = String.Format(new CultureInfo("en-US"), "INSERT INTO USERS (NAME, CPF, EMAIL, PASS, PHONE,createdAt, updatedAt) " +
+                                       "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')" +
+                                       "; SELECT LAST_INSERT_ID();",
+                                        name, cpf, email, pass, phone, hoje,hoje);
 
                 BD.ExecutaComando(false, out id);
 
@@ -56,7 +62,7 @@ namespace QuadraFinder
             try
             {
                 int exOK = 0;
-                BD._sql = "DELETE FROM USER WHERE IDUSER = " + iduser;
+                BD._sql = "DELETE FROM users WHERE ID = " + iduser;
                 exOK = BD.ExecutaComando(false);
 
                 if (exOK == 1)
@@ -80,8 +86,8 @@ namespace QuadraFinder
             try
             {
                 int exOK = 0;
-                BD._sql = "UPDATE USER SET NAME = '" + name + "', CPF = '" + cpf + "', EMAIL = '" + email + "', PASS = '" + pass + "', PHONE = '" + phone + "' " +
-                          "WHERE IDUSER = " + iduser;
+                BD._sql = "UPDATE users SET NAME = '" + name + "', CPF = '" + cpf + "', EMAIL = '" + email + "', PASS = '" + pass + "', PHONE = '" + phone + "' " +
+                          "WHERE ID = " + iduser;
 
                 exOK = BD.ExecutaComando(false);
 
@@ -105,7 +111,7 @@ namespace QuadraFinder
         {
             try
             {
-                BD._sql = "SELECT * FROM USER WHERE NAME LIKE '%" + name + "%'";
+                BD._sql = "SELECT * FROM users WHERE NAME LIKE '%" + name + "%'";
                 return BD.ExecutaSelect();
             }
             catch (Exception ex)
@@ -120,7 +126,7 @@ namespace QuadraFinder
         {
             try
             {
-                BD._sql = "SELECT * FROM USER WHERE EMAIL LIKE '" + email + "'";
+                BD._sql = "SELECT * FROM users WHERE EMAIL LIKE '" + email + "'";
                 return BD.ExecutaSelect();
             }
             catch (Exception ex)

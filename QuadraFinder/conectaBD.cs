@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Data;
-using System.IO;
 using System.Windows.Forms;
-
+using System.Data.SqlClient;
 
 namespace QuadraFinder
 {
@@ -19,29 +18,28 @@ namespace QuadraFinder
         public string _sql;
 
         // Campo responsável pelo comando de SQL a ser executado
-        private SqlCommand _comandoSQL;
+        private MySqlCommand _comandoSQL;
 
         // Propriedade que expõe o campo para definição do comando de SQL a ser executado
-        private SqlCommand ComandoSQL
+        private MySqlCommand ComandoSQL
         {
             get { return _comandoSQL; }
             set { _comandoSQL = value; }
         }
 
         // Campo que define o objeto de conexão
-        private SqlConnection _conn;
+        private MySqlConnection _conn;
 
         // Campo que define o objeto de transação
-        private SqlTransaction _transacao;
+        private MySqlTransaction _transacao;
 
         // Construtor que define uma string de conexão fixa e cria os objetos de conexão e comando
         public conectaBD()
-
         {
-            StreamReader str = new StreamReader("conexao.ini");
-            _strConexao = str.ReadLine() + "Initial Catalog=QuadraFInder;Persist Security Info=True;User ID=sa;Password=senac";
-            _conn = new SqlConnection(_strConexao);
-            _comandoSQL = new SqlCommand();
+            // Aqui a string de conexão foi definida diretamente
+            _strConexao = "server=localhost;database=teste;user=paulo;password=senac123;";
+            _conn = new MySqlConnection(_strConexao);
+            _comandoSQL = new MySqlCommand();
             _comandoSQL.Connection = _conn;
         }
 
@@ -50,8 +48,8 @@ namespace QuadraFinder
         public conectaBD(string stringConexao)
         {
             _strConexao = stringConexao;
-            _conn = new SqlConnection(_strConexao);
-            _comandoSQL = new SqlCommand();
+            _conn = new MySqlConnection(_strConexao);
+            _comandoSQL = new MySqlCommand();
             _comandoSQL.Connection = _conn;
         }
 
@@ -111,7 +109,6 @@ namespace QuadraFinder
         ~conectaBD()
         {
             FechaConexao();
-
         }
 
         // Método responsável pela execução dos comandos de Insert, Update e Delete
@@ -147,7 +144,7 @@ namespace QuadraFinder
             AbreConexao(transacao);
             try
             {
-                //Executa o comando de insert e já retorna o @@IDENTITY
+                //Executa o comando de insert e já retorna o LAST_INSERT_ID()
                 _comandoSQL.CommandText = _sql;
                 ultimoCodigo = Convert.ToInt32(_comandoSQL.ExecuteScalar());
                 retorno = 1;

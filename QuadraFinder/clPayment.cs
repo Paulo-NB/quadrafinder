@@ -29,7 +29,7 @@ namespace QuadraFinder
             {
                 BD._sql = String.Format(new CultureInfo("en-US"), "INSERT INTO PAYMENT (TOTAL, DATE, IDUSER, IDLOCATION, CVV, NUMBERCARD, YEARCARD, MONTHCARD) " +
                                        "VALUES ({0}, '{1}', {2}, {3}, '{4}', '{5}', {6}, {7})" +
-                                       "; SELECT SCOPE_IDENTITY();",
+                                       "; SELECT LAST_INSERT_ID();",
                                         total, date.ToString("yyyy-MM-dd HH:mm:ss"), iduser, idlocation, cvv, numbercard, yearcard, monthcard);
 
                 BD.ExecutaComando(false, out id);

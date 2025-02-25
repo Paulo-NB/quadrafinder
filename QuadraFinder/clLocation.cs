@@ -23,7 +23,7 @@ namespace QuadraFinder
             try
             {
                 BD._sql = String.Format("INSERT INTO LOCATION (IDUSER, IDCOURT, DATE) VALUES ({0}, {1}, '{2}')" +
-                                       "; SELECT SCOPE_IDENTITY();",
+                                       "; SELECT LAST_INSERT_ID();",
                                         iduser, idcourt, date.ToString("yyyy-MM-dd HH:mm:ss"));
 
                 BD.ExecutaComando(false, out id);
